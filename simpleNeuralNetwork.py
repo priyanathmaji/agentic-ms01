@@ -21,6 +21,7 @@ class SimpleNeuralNetwork():
             loss.backward()
             print("Loss:", loss)
             self.optimizer.step()
+        return self.model
 
     def infer(self,x) -> torch.tensor:
         output = self.model(x)
@@ -30,17 +31,19 @@ class SimpleNeuralNetwork():
         x = x.unsqueeze(0).T
         print(x.shape)
         #print(x)
-        y = x ** 2
+        y = x 
+        print(x[1][0])
+        print(y[1][0])
         return x, y
         
     def main(self):
-
         x, y = self.data_small()
-        self.createModel(x,y)
+        model = self.createModel(x,y)
 
 if __name__ == "__main__":
-    SimpleNeuralNetwork().main()
-    x = torch.tensor([.020])
-    y = SimpleNeuralNetwork().model(x)
-    print(y)
+    x, y = SimpleNeuralNetwork().data_small()
+    model = SimpleNeuralNetwork().createModel(x,y)
+    sample = torch.tensor([0.02])
+    output = model(sample)
+    print(output)
 
